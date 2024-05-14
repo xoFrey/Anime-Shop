@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
     passwordSalt: { type: String, required: true, trim: true },
     isVerified: { type: Boolean, default: false },
     sixDigitCode: { type: String, required: true },
-    isAdmin: { type: Boolean }, //?????????????
+    isAdmin: { type: Boolean }, //?????????????enum hauptadmin, admin. customer
   },
   { collection: "users", timestamps: true },
 );
