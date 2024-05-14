@@ -4,7 +4,7 @@ import { doJwtAuth } from "../middlewares/doJwtAuth.js";
 
 export const userRouter = express
   .Router()
-  .post("/register", UserController.userRegistrationCtrl)
-  .post("/admin/register", UserController.adminRegistrationCtrl)
+  .post("/customer/register", UserController.userRegistrationCtrl)
+  .post("/admin/register", doJwtAuth, UserController.adminRegistrationCtrl)
   .post("/login", UserController.loginUserCtrl)
   .post("/verify", UserController.verifyUserCtrl);

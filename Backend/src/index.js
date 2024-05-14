@@ -17,8 +17,7 @@ app.use(express.json());
 
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/orders", doJwtAuth, orderRouter);
-app.use("/api/v1", doJwtAuth, userRouter);
-app.use("/api/v1/customer", userRouter);
+app.use("/api/v1", userRouter);
 
 try {
   await connectToDatabase();

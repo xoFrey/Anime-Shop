@@ -3,7 +3,7 @@ import { UserService } from "../services/index.js";
 const userRegistrationCtrl = async (req, res) => {
   try {
     const userInfo = req.body;
-    const registeredUser = await UserService.registerUser(userInfo);
+    const registeredUser = await UserService.userRegistration(userInfo);
     res.status(201).json({ registeredUser });
   } catch (err) {
     console.log(err);
@@ -17,7 +17,7 @@ const adminRegistrationCtrl = async (req, res) => {
   try {
     const authenticatedUserId = req.authenticatedUserId;
     const userInfo = req.body;
-    const registeredUser = await UserService.registerUser(
+    const registeredUser = await UserService.adminRegistration(
       userInfo,
       authenticatedUserId,
     );

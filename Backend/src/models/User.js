@@ -9,7 +9,10 @@ const userSchema = new mongoose.Schema(
     passwordSalt: { type: String, required: true, trim: true },
     isVerified: { type: Boolean, default: false },
     sixDigitCode: { type: String, required: true },
-    isAdmin: { type: String, enum: ["Superadmin", "Admin", "Customer"] }, //?????????????enum hauptadmin, admin. customer => nach login von hauptadmin kann man admin registrieren
+    isAdmin: {
+      type: String,
+      enum: ["Superadmin", "Admin", "Customer"],
+    }, //?????????????enum hauptadmin, admin. customer => nach login von hauptadmin kann man admin registrieren
     // hacken zu "is admin" kann nur gesetzt werden wenn hauptadmin eingeloggt ist
     // auf backend seite auch prüfen!!! nicht nur front end
   },

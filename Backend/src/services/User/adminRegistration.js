@@ -12,7 +12,7 @@ export const adminRegistration = async (
 
   const loggedAdmin = await User.findById(authenticatedUserId);
   if (loggedAdmin.isAdmin !== "Superadmin")
-    throw new Error("Superadmin has to be logged in");
+    throw new Error("You have no rights to do this!");
 
   const passwordSalt = generateRandomSalt();
   const passwordHash = hash(`${password}${passwordSalt}`);

@@ -33,6 +33,5 @@ export const userRegistration = async ({
     firstname: user.firstname,
     lastname: user.lastname,
     email: user.email,
-    isAdmin: user.isAdmin,
   };
 };
