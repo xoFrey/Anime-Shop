@@ -3,14 +3,16 @@ import { generateAuthCode } from "../../utils/authCode.js";
 import { generateRandomSalt, hash } from "../../utils/hash.js";
 import { sendEmailVerification } from "../../utils/sendEmailVerification.js";
 
-export const registerUser = async ({
-  firstname,
-  lastname,
-  email,
-  password,
-}) => {
+export const adminRegistration = async (
+  { firstname, lastname, email, password, isAdmin },
+  authenticatedUserId,
+) => {
   const foundUser = await User.findOne({ email });
   if (foundUser) throw new Error("User already exists with this Email");
+
+  const loggedAdmin = await User.findById(authenticatedUserId);
+  if (loggedAdmin.isAdmin !== "Superadmin")
+    throw new Error("Superadmin has to be logged in");
 
   const passwordSalt = generateRandomSalt();
   const passwordHash = hash(`${password}${passwordSalt}`);
@@ -24,6 +26,7 @@ export const registerUser = async ({
     passwordSalt,
     isVerified: false,
     sixDigitCode,
+    isAdmin,
   });
 
   await sendEmailVerification(user);
@@ -32,5 +35,6 @@ export const registerUser = async ({
     firstname: user.firstname,
     lastname: user.lastname,
     email: user.email,
+    isAdmin: user.isAdmin,
   };
 };

@@ -1,9 +1,26 @@
 import { UserService } from "../services/index.js";
 
-const registerUserCtrl = async (req, res) => {
+const userRegistrationCtrl = async (req, res) => {
   try {
     const userInfo = req.body;
     const registeredUser = await UserService.registerUser(userInfo);
+    res.status(201).json({ registeredUser });
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ err, message: err.message || "Could not register new User! " });
+  }
+};
+
+const adminRegistrationCtrl = async (req, res) => {
+  try {
+    const authenticatedUserId = req.authenticatedUserId;
+    const userInfo = req.body;
+    const registeredUser = await UserService.registerUser(
+      userInfo,
+      authenticatedUserId,
+    );
     res.status(201).json({ registeredUser });
   } catch (err) {
     console.log(err);
@@ -44,7 +61,8 @@ const verifyUserCtrl = async (req, res) => {
 };
 
 export const UserController = {
-  registerUserCtrl,
+  userRegistrationCtrl,
+  adminRegistrationCtrl,
   loginUserCtrl,
   verifyUserCtrl,
 };

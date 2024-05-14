@@ -2,15 +2,15 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
   {
-    date: Date.now(),
+    date: { type: Date, default: Date.now() },
     products: [
       { type: mongoose.Types.ObjectId, ref: "products", required: true },
     ],
-    state: { type: boolean, required: true, trim: true }, // bearbeitet oder nicht
+    // state: { type: Boolean, default: false }, // bearbeitet oder nicht
     price: { type: Number, required: true },
     customer: {
       type: mongoose.Types.ObjectId,
-      red: "customer",
+      red: "User",
       required: true,
     },
   },
